@@ -4,7 +4,6 @@ import "./index.css";
 import Login from './pages/auth/login';
 import Register from './pages/auth/register';
 import Forgot from './pages/auth/forgot';
-import Dashboard from './pages/dashboard';
 import NotFound from './pages/error/404';
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -15,6 +14,7 @@ import Footer from "./components/footer";
 import Profile from "./pages/account";
 import Detail from "./pages/dashboard/detail";
 import Admin from "./layouts/Admin/admin";
+import Dashboard from "./pages/admin/dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -37,6 +37,7 @@ root.render(
         <Route path="/admin" element={<Admin />} />
         <Route path="/detail" element={<Detail/>} />
         <Route path="/user" element={<Profile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
 
       </Routes>
