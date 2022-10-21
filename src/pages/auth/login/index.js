@@ -35,7 +35,7 @@ const Login = () => {
           console.log(err.response.data);
         }
         handleAlert(true);
-        setAlertMsg(err.response.data.message);
+        setAlertMsg(err.response.message);
       });
   };
   return (
@@ -93,7 +93,6 @@ const Login = () => {
                   </label>
                   <input
                     onFocus={() => handleAlert(false)}
-                    j
                     type="password"
                     name="password"
                     id="password"

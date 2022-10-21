@@ -7,7 +7,10 @@ const CardDetailPost = () => {
     const [token, setToken] = useState(null);
     const [detail, setDetail] = useState([]);
     const [detailp, setDetailProfile] = useState([]);
+    const [filter, setFilter] = useState(false);
+    const [Aldata, setAldata] = useState()
     const param = useParams();
+    console.log(typeof param.id)
 
 
     // Get TOken
@@ -22,19 +25,21 @@ const CardDetailPost = () => {
         if (token !== null) {
             getDetail(token);
             getDetailProfile(token);
+            // getallLowongan(token);
         }
     }, [token]);
 
 
     const getDetail = async () => {
         await axios
-            .get(`${process.env.REACT_APP_BASE_URL}/lowonganpekerjaan/listpelamar/id/${param.id}`, {
+            .post(`${process.env.REACT_APP_BASE_URL}/lowonganpekerjaan/getdetailpelamar`, {
+                idLowongan: param.id
+            }, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => {
                 if (res.status === 200) {
                     setDetail(res.data.data);
-                    console.log(setDetail)
                 }
             })
             .catch((err) => {
@@ -62,7 +67,6 @@ const CardDetailPost = () => {
         <>
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-md rounded p-4">
                 <div className="overflow-x-auto relative">
-
                     <div className="pb-4 bg-white dark:bg-gray-900 p-2">
                         <label for="table-search" className="sr-only">Search</label>
                         <div className="relative mt-1">
@@ -112,6 +116,7 @@ const CardDetailPost = () => {
                                         <td className="py-4 px-6">
                                             <span className="bg-blue-100 text-blue-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">{val.score_utama}</span>
                                         </td>
+
                                         <td className="flex items-center py-4 px-6 space-x-3">
                                             <a href={`/admin/listpost/detailPost/${val.id_pelamar}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
                                                 <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z" />

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../../components/alert";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,9 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConf] = useState("");
   const [namaPerusahaan, setPerusahaan] = useState("")
+  const [showAlert, handleAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -31,9 +35,6 @@ function Register() {
         if (response.status === 200) {
           // sessionStorage.setItem("data", JSON.stringify(res.data.data));
           navigate("/login");
-          console.log("success create");
-        } else {
-          console.log("something wrong");
         }
       })
       .catch(err => {
@@ -42,9 +43,8 @@ function Register() {
         } else {
           console.log(err.response.data);
         }
-        // console.log(err.data.data)
-        // handleAlert(true);
-        // setAlertMsg(err.response.data.message);
+        handleAlert(true);
+        setAlertMsg(err.response.data.message);
       });
   };
   return (
@@ -64,6 +64,7 @@ function Register() {
           </a>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              {showAlert && <Alert msg={alertMsg} />}
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Create and account
               </h1>
@@ -88,6 +89,7 @@ function Register() {
                       value={firstName}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Enter your first name"
+                      onFocus={() => handleAlert(false)}
                       onChange={e => setFirst(e.target.value)}
                       required=""
                     />
@@ -105,6 +107,7 @@ function Register() {
                       value={lastName}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Enter your last name"
+                      onFocus={() => handleAlert(false)}
                       onChange={e => setLast(e.target.value)}
                       required=""
                     />
@@ -122,6 +125,7 @@ function Register() {
                       value={username}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Enter your Username"
+                      onFocus={() => handleAlert(false)}
                       onChange={e => setUsername(e.target.value)}
                       required=""
                     />
@@ -139,6 +143,7 @@ function Register() {
                       value={namaPerusahaan}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Enter your Username"
+                      onFocus={() => handleAlert(false)}
                       onChange={e => setPerusahaan(e.target.value)}
                       required=""
                     />
@@ -156,6 +161,7 @@ function Register() {
                       value={email}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Enter your work email address"
+                      onFocus={() => handleAlert(false)}
                       onChange={e => setEmail(e.target.value)}
                       required=""
                     />
@@ -173,6 +179,7 @@ function Register() {
                       value={password}
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onFocus={() => handleAlert(false)}
                       onChange={e => setPassword(e.target.value)}
                       required=""
                     />
@@ -191,6 +198,7 @@ function Register() {
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       onChange={e => setConf(e.target.value)}
+                      onFocus={() => handleAlert(false)}
                       required=""
                     />
                   </div>
@@ -208,6 +216,7 @@ function Register() {
                       placeholder="Enter your mobile number"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       onChange={e => setPhone(e.target.value)}
+                      onFocus={() => handleAlert(false)}
                       required=""
                     />
                   </div>
